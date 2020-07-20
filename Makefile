@@ -21,4 +21,7 @@ migrate:
 	@alembic upgrade head
 
 rollback:
+	@alembic downgrade -1
+
+reset:
 	@alembic downgrade base

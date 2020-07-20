@@ -10,6 +10,9 @@ $ make start
 ```bash
 $ pipenv shell
 $ pipenv install <package>
+
+# Installing dev only dependencies.
+$ pipenv install <package> --dev
 ```
 
 ## Database
@@ -20,7 +23,7 @@ Using SQLAlchemy with Alembic.
 $ alembic init alembic/
 
 # Create new migration file.
-$ make migrate-create-table-xyz
+$ make sql-'create table xyz'
 
 # Run migration
 $ make migrate

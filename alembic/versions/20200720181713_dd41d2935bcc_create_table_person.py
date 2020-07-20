@@ -1,17 +1,18 @@
-"""create-table-user
+"""create table person
 
-Revision ID: 0fe137dade5e
-Revises: 836205e482c8
-Create Date: 2020-07-20 16:39:57.046277
+Revision ID: dd41d2935bcc
+Revises: 230622bbf343
+Create Date: 2020-07-20 18:17:13.549210
 
 """
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
+
 # revision identifiers, used by Alembic.
-revision = '0fe137dade5e'
-down_revision = '836205e482c8'
+revision = 'dd41d2935bcc'
+down_revision = '230622bbf343'
 branch_labels = None
 depends_on = None
 

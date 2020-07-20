@@ -1,8 +1,8 @@
-"""create-extension-pgcrypto
+"""create extension pgcrypto
 
-Revision ID: 836205e482c8
-Revises: 2dd5e68872bd
-Create Date: 2020-07-20 16:36:58.534839
+Revision ID: 230622bbf343
+Revises:
+Create Date: 2020-07-20 18:17:03.906782
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '836205e482c8'
+revision = '230622bbf343'
 down_revision = None
 branch_labels = None
 depends_on = None
