@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from enum import Enum
+from db.main import app as subapp
 
 app = FastAPI()
 
@@ -51,3 +52,5 @@ async def get_model(model_name: ModelName):
         return {"model_name": model_name, "message": "LeCNN all the image"}
 
     return {"model_name": model_name, "message": "have some residual"}
+
+app.mount('/users', subapp)
