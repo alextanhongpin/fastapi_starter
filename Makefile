@@ -17,17 +17,21 @@ down:
 	@docker-compose down
 
 
-sql-%:
-	@alembic revision -m '$*'
+sql: # Creates a new migration file.
+	@alembic revision -m $(name)
 
 
-migrate:
+migrate: # Runs migration.
 	@alembic upgrade head
 
 
-rollback:
+rollback: # Rollback migration by one step.
 	@alembic downgrade -1
 
 
-reset:
+reset: # Resets the database.
 	@alembic downgrade base
+
+
+psql: # Access the postgres shell.
+	@PGPASSWORD=$(DB_PASS) docker-compose exec db psql -U $(DB_USER) $(DB_NAME)
