@@ -35,3 +35,7 @@ reset: # Resets the database.
 
 psql: # Access the postgres shell.
 	@PGPASSWORD=$(DB_PASS) docker-compose exec db psql -U $(DB_USER) $(DB_NAME)
+
+
+docs:
+	@open http://localhost:8000/docs
