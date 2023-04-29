@@ -7,6 +7,8 @@ verify_ssl = true
 pylint = "*"
 black = "*"
 autopep8 = "*"
+testcontainers = "*"
+pytest = "*"
 
 [packages]
 fastapi = "*"
@@ -15,6 +17,8 @@ alembic = "*"
 uuid = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
+testcontainers = "*"
+httpx = "*"
 
 [requires]
 python_version = "3.11"

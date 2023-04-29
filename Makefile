@@ -39,3 +39,7 @@ psql: # Access the postgres shell.
 
 docs:
 	@open http://localhost:8000/docs
+
+
+test:
+	PYTHONPATH=. pytest tests
