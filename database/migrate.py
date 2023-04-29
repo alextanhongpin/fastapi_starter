@@ -7,7 +7,7 @@ from alembic.runtime.environment import EnvironmentContext
 def run_migrations(engine):
     metadata = None
     alembic_cfg = Config()
-    alembic_cfg.set_main_option("script_location", "alembic")
+    alembic_cfg.set_main_option("script_location", "migrations")
 
     alembic_script = ScriptDirectory.from_config(alembic_cfg)
     alembic_env = EnvironmentContext(alembic_cfg, alembic_script)

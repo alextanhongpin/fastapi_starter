@@ -52,7 +52,7 @@ def db(db_engine):
 
 
 @pytest.fixture(scope="function")
-def user_router(db):
+def api(db):
     app.dependency_overrides[inject_session] = lambda: db
 
     with TestClient(app) as c:
