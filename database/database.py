@@ -13,7 +13,7 @@ config = {
     "name": os.environ.get("DB_NAME"),
 }
 
-SQLALCHEMY_DATABASE_URL = "postgres://{user}:{password}@{host}:{port}/{name}".format(
+SQLALCHEMY_DATABASE_URL = "postgresql://{user}:{password}@{host}:{port}/{name}".format(
     **config
 )
 

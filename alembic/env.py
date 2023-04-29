@@ -26,13 +26,16 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-dsn = "postgres://{user}:{password}@{host}:{port}/{name}".format(user=os.environ.get("DB_USER"),
-                                                                 password=os.environ.get("DB_PASS"),
-                                                                 host=os.environ.get("DB_HOST"),
-                                                                 port=os.environ.get("DB_PORT"),
-                                                                 name=os.environ.get("DB_NAME"))
+dsn = "postgresql://{user}:{password}@{host}:{port}/{name}".format(
+    user=os.environ.get("DB_USER"),
+    password=os.environ.get("DB_PASS"),
+    host=os.environ.get("DB_HOST"),
+    port=os.environ.get("DB_PORT"),
+    name=os.environ.get("DB_NAME"),
+)
 
-config.set_main_option('sqlalchemy.url', dsn)
+config.set_main_option("sqlalchemy.url", dsn)
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
@@ -72,9 +75,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
