@@ -3,7 +3,6 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from .base.dependencies import UserUsecaseDep
 from .base.response import Response
-from app.exceptions import NotFoundError
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -37,7 +36,5 @@ def read_person(
     usecase: UserUsecaseDep,
 ):
     user = usecase.get_user(id)
-    if user is None:
-        raise NotFoundError(reason="user_not_found")
 
     return Response(data=user)
