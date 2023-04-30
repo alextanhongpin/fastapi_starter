@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from database.session import inject_session, Session
 from repository import user as user_repo
 from uuid import UUID
-from .response.response import Response
+from .base.response import Response
 
 
 router = APIRouter(prefix="/users", tags=["users"])
