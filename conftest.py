@@ -1,12 +1,13 @@
 # The recommended file by pytest to store fixture.
-from database.migrate import run_migrations
-from database.session import inject_session
+import pytest
 from fastapi.testclient import TestClient
-from api.root import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from testcontainers.postgres import PostgresContainer
-import pytest
+
+from api.root import app
+from database.migrate import run_migrations
+from database.session import inject_session
 
 # Global application scope, create Session class, engine.
 Session = sessionmaker()
