@@ -9,6 +9,9 @@ black = "*"
 autopep8 = "*"
 testcontainers = "*"
 pytest = "*"
+mypy = "*"
+flake8 = "*"
+isort = "*"
 
 [packages]
 fastapi = "*"

@@ -21,6 +21,16 @@ down:
 	@docker-compose down
 
 
+src_files := {api,database,repository,tests,usecase}
+lint:
+	@# Make sure to run this in pipenv shell
+	black ${src_files} # Format code.
+	flake8 ${src_files} # Run analysis.
+	isort ${src_files} # Sort imports.
+	mypy ${src_files} # Run static type checking.
+	#pylint .
+
+
 sql: # Creates a new migration file.
 	@alembic revision -m $(name)
 
