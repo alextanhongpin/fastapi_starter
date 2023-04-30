@@ -1,11 +1,7 @@
 from uuid import UUID
-
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from pydantic import BaseModel
-
-from database.session import Session, inject_session
-from repository import user as user_repo
-
+from .base.dependencies import UserUsecaseDep
 from .base.response import Response
 from app.exceptions import NotFoundError
 
@@ -26,15 +22,21 @@ class User(UserBase):
 # calling "$ curl localhost:8000/users/"
 @router.get("", response_model=Response[list[User]])
 def read_persons(
-    skip: int = 0, limit: int = 10, session: Session = Depends(inject_session)
+    usecase: UserUsecaseDep,
+    skip: int = 0,
+    limit: int = 10,
 ):
-    users = user_repo.get_users(session, skip=skip, limit=limit)
+    users = usecase.get_users(skip=skip, limit=limit)
     return Response(data=users)
 
 
 @router.get("/{id}", response_model=Response[User])
-def read_person(id: UUID, session: Session = Depends(inject_session)):
-    user = user_repo.get_user(session, id)
+def read_person(
+    id: UUID,
+    # session: Session = Depends(inject_session),
+    usecase: UserUsecaseDep,
+):
+    user = usecase.get_user(id)
     if user is None:
         raise NotFoundError(reason="user_not_found")
 

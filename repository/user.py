@@ -4,21 +4,34 @@ from database.session import Session
 from database.user import User
 
 
-def create_user(session: Session, name: str) -> User:
-    user = User(name=name)
-    session.add(user)
-    session.commit()
-    session.refresh(user)
-    return user
+class UserRepository:
+    def __init__(self, session: Session):
+        self.session = session
 
+    def create_user(self, name: str, *, session: Session = None) -> User:
+        """creates a new user"""
+        session = session or self.session
 
-def get_user_by_name(session: Session, name: str) -> User:
-    return session.query(User).filter(User.name == name).first()
+        user = User(name=name)
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+        return user
 
+    def get_user_by_name(self, name: str, *, session: Session = None) -> User | None:
+        session = session or self.session
 
-def get_user(session: Session, id: UUID) -> User:
-    return session.query(User).filter(User.id == id).first()
+        return session.query(User).filter(User.name == name).first()
 
+    def get_user(self, id: UUID, *, session: Session = None) -> User | None:
+        session = session or self.session
 
-def get_users(session: Session, skip: int = 0, limit: int = 10) -> list[User]:
-    return session.query(User).offset(skip).limit(limit).all()
+        return session.query(User).filter(User.id == id).first()
+
+    def get_users(
+        self, *, skip: int = 0, limit: int = 10, session: Session = None
+    ) -> list[User]:
+        """returns the list of paginated users"""
+        session = session or self.session
+
+        return session.query(User).offset(skip).limit(limit).all()

@@ -17,18 +17,3 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={})
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-def inject_session() -> Session:
-    """
-    Injects the session for FastAPI
-    """
-    session = SessionLocal()
-    try:
-        yield session
-    finally:
-        session.close()
-
-
-def get_session() -> Session:
-    return SessionLocal()
