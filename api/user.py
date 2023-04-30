@@ -7,6 +7,7 @@ from database.session import Session, inject_session
 from repository import user as user_repo
 
 from .base.response import Response
+from app.exceptions import NotFoundError
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -34,4 +35,7 @@ def read_persons(
 @router.get("/{id}", response_model=Response[User])
 def read_person(id: UUID, session: Session = Depends(inject_session)):
     user = user_repo.get_user(session, id)
+    if user is None:
+        raise NotFoundError(reason="user_not_found")
+
     return Response(data=user)
