@@ -5,8 +5,8 @@ Revises: f1220107260e
 Create Date: 2023-04-29 19:57:02.933088
 
 """
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
 # from sqlalchemy.dialects.postgresql import UUID, TEXT
 

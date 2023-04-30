@@ -1,10 +1,11 @@
 import os
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session, sessionmaker
 
+dsn = "postgresql://{user}:{password}@{host}:{port}/{name}"
 
-SQLALCHEMY_DATABASE_URL = "postgresql://{user}:{password}@{host}:{port}/{name}".format(
+SQLALCHEMY_DATABASE_URL = dsn.format(
     user=os.environ.get("DB_USER"),
     password=os.environ.get("DB_PASS"),
     host=os.environ.get("DB_HOST"),

@@ -1,11 +1,9 @@
 from alembic.config import Config
-from alembic import command, autogenerate
-from alembic.script import ScriptDirectory
 from alembic.runtime.environment import EnvironmentContext
+from alembic.script import ScriptDirectory
 
 
 def run_migrations(engine):
-    metadata = None
     alembic_cfg = Config()
     alembic_cfg.set_main_option("script_location", "migrations")
 
@@ -13,12 +11,13 @@ def run_migrations(engine):
     alembic_env = EnvironmentContext(alembic_cfg, alembic_script)
 
     conn = engine.connect()
-    alembic_env.configure(connection=conn, target_metadata=metadata)
+    alembic_env.configure(connection=conn, target_metadata=None)
 
     def do_upgrade(revision, context):
-        return alembic_script._upgrade_revs(alembic_script.get_heads(), revision)
+        heads = alembic_script.get_heads()
+        return alembic_script._upgrade_revs(heads, revision)
 
-    alembic_env.configure(connection=conn, target_metadata=metadata, fn=do_upgrade)
+    alembic_env.configure(connection=conn, target_metadata=None, fn=do_upgrade)
 
     with alembic_env.begin_transaction():
         alembic_env.run_migrations()
