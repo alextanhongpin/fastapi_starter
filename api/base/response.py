@@ -1,6 +1,6 @@
 from typing import Generic, TypeVar
 
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import BaseModel, validator
 from pydantic.generics import GenericModel
 
 DataT = TypeVar("DataT")

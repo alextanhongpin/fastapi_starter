@@ -1,11 +1,13 @@
-from .user import router as user_router
-from fastapi import FastAPI, Request, status
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-from .base.response import Response, Error
-from .base.exceptions import get_status_code_by_error_code
+from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+
 from app.exceptions import AppException
+
+from .base.exceptions import get_status_code_by_error_code
+from .base.response import Error, Response
+from .user import router as user_router
 
 app = FastAPI()
 

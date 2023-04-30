@@ -1,4 +1,5 @@
 from fastapi import status
+
 from app import exceptions
 
 status_code_by_error_code = {
@@ -15,4 +16,6 @@ status_code_by_error_code = {
 
 
 def get_status_code_by_error_code(code: str) -> int:
-    return status_code_by_error_code.get(code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+    default_status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+
+    return status_code_by_error_code.get(code, default_status_code)
