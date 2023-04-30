@@ -1,6 +1,10 @@
 -include .env
 export
 
+
+.PHONY: docs
+
+
 shell: ## This has to be executed outside the Makefile.
 	@echo 'Run $ pipenv shell'
 
