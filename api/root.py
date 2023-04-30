@@ -3,8 +3,8 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from .base.response import Response, Error
+from .base.exceptions import get_status_code_by_error_code
 from fastapi.encoders import jsonable_encoder
-from app import exceptions
 from app.exceptions import AppException
 
 app = FastAPI()
@@ -20,28 +20,12 @@ app.add_middleware(
 )
 
 
-status_code_by_error_code = {
-    exceptions.ALREADY_EXISTS: status.HTTP_409_CONFLICT,
-    exceptions.BAD_REQUEST: status.HTTP_400_BAD_REQUEST,
-    exceptions.CONFLICT: status.HTTP_409_CONFLICT,
-    exceptions.FORBIDDEN: status.HTTP_403_FORBIDDEN,
-    exceptions.INTERNAL: status.HTTP_500_INTERNAL_SERVER_ERROR,
-    exceptions.NOT_FOUND: status.HTTP_404_NOT_FOUND,
-    exceptions.PRECONDITION_FAILED: status.HTTP_412_PRECONDITION_FAILED,
-    exceptions.UNAUTHORIZED: status.HTTP_401_UNAUTHORIZED,
-    exceptions.UNKNOWN: status.HTTP_500_INTERNAL_SERVER_ERROR,
-}
-
-
 @app.exception_handler(AppException)
 async def app_exception_handler(request: Request, exc: AppException):
-    status_code = status_code_by_error_code.get(
-        exc.code, status.HTTP_500_INTERNAL_SERVER_ERROR
-    )
     error = Error(code=exc.code, reason=exc.reason, message=exc.message)
 
     return JSONResponse(
-        status_code=status_code,
+        status_code=get_status_code_by_error_code(exc.code),
         content=jsonable_encoder(Response(error=error)),
     )
 
